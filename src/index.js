@@ -4,7 +4,6 @@ module.exports = function styled(initExpresion = null) {
   return function (strings,...functionExpressions) { // returns function that parses template strings
     return function (objArgs) { // returns function that build the resulting string
       let result = '';
-
       if(initExpresion != null) result = initExpresion(objArgs); // discharge initExpresion if necessary
       result += strings[0] || '' ; // adds first string element from template (if exist) to result string variable
       // if functionExpressions
@@ -34,9 +33,9 @@ function styled(initExpresion = null) {
           return ((typeof expression === 'function') ? expressionResult(expression(objArgs)) : expression) || '';
         }
         function strToArray(str) {
-          let strReplace = str.replace(/\n|\t/g, '').replace(/;;/g,';') // remove newline, tab characters, and ';;' from string
-          let arrayStrEl = strReplace .split(';').map((item) => item.split(': ').map(item => item && '"'+item+'"').join(': ')); // return array ['"key": "value"', '"key":"value"',...]
-          let resultArray = arrayStrEl.join(',').split(''); // join array element by ',', ant splite string to result array of symbol
+          const strReplace = str.replace(/\n|\t/g, '').replace(/;;/g,';') // remove newline, tab characters, and ';;' from string
+          const arrayStrEl = strReplace .split(';').map((item) => item.split(': ').map(item => item && '"'+item+'"').join(': ')); // return array ['"key": "value"', '"key":"value"',...]
+          const resultArray = arrayStrEl.join(',').split(''); // join array element by ',', ant splite string to result array of symbol
           return resultArray
         }
         function arrayToJsonStr(arr) {
@@ -55,10 +54,10 @@ function styled(initExpresion = null) {
           return result;
         }
         function restructResult(str) {
-          let arrayOfSymbol = strToArray(str);
-          let jsonStr = arrayToJsonStr(arrayOfSymbol);
-          let jsonObj = JSON.parse(jsonStr);
-          let  result = jsonObjToResultStr(jsonObj);
+          const arrayOfSymbol = strToArray(str);
+          const jsonStr = arrayToJsonStr(arrayOfSymbol);
+          const jsonObj = JSON.parse(jsonStr);
+          const  result = jsonObjToResultStr(jsonObj);
           return result;
         }
 
